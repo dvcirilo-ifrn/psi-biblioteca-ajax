@@ -30,76 +30,13 @@
       </a>
     </div>
     <div class="col-md-4">
-      <a class="text-decoration-none" style="color: inherit;" href="{% url 'dashboard:favoritos' %}">
-        <div class="card text-bg-warning mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Favoritos</h5>
-              <p class="card-text">Total: {{ num_favoritos }}</p>
-          </div>
+      <div class="card text-bg-warning mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Favoritos</h5>
+            <p class="card-text">Total: {{ num_favoritos }}</p>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
 {% endblock %}
-<!--
-<div class="d-flex">
-  <div class="d-flex position-fixed flex-column flex-shrink-0 p-3 bg-body-secondary" style="width: 250px;">
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li>
-        <a href="{% url 'dashboard:index' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard:index' %}active{% endif %}">
-          <i class="bi bi-speedometer2 me-2"></i>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <i class="bi bi-book me-2"></i>
-          Livros
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <i class="bi bi-person-circle me-2"></i>
-          Usuários
-        </a>
-      </li>
-    </ul>
-  </div>   
-  <div class="flex-grow-1" style="margin-left: 250px;">
-    <div class="container-fluid p-4">
-      <div class="container d-flex">
-        <h3 class="display-3 me-auto"> Administração </h3>
-      </div>
-      <section class="album py-5 bg-body-tertiary">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card text-bg-primary mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Usuários</h5>
-                <p class="card-text">Total: {{ num_usuarios }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-bg-success mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Livros</h5>
-                <p class="card-text">Total: {{ num_livros }}</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-bg-warning mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Favoritos</h5>
-                  <p class="card-text">Total: {{ num_favoritos }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-</div>
--->

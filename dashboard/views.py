@@ -20,18 +20,22 @@ def index(request):
 
     return render(request, "dashboard/index.html", context)
 
+@login_required
+@permission_required("biblioteca.add_livro", raise_exception=True)
 def listar_livros(request):
     ordenar = request.GET.get("ordenar")
     if ordenar:
         livros = Livro.objects.all().order_by(ordenar)
     else:
-        livros = Livro.objects.all()
+        livros = Livro.objects.all().order_by("id")
 
     paginator = Paginator(livros, 10)
     numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
     livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
     return render(request, "dashboard/livros.html", {"livros": livros_paginados})
 
+@login_required
+@permission_required("biblioteca.add_livro", raise_exception=True)
 def criar_livro(request):
     if request.method == "POST":
         form = LivroForm(request.POST, request.FILES)
@@ -45,10 +49,14 @@ def criar_livro(request):
         form = LivroForm()
     return render(request, "dashboard/criar_livro.html", {"form": form})
 
+@login_required
+@permission_required("biblioteca.view_livro", raise_exception=True)
 def ler_livro(request, id):
     livro = get_object_or_404(Livro, id=id)
     return render(request, "dashboard/detalhar_livro.html", {"livro": livro})
 
+@login_required
+@permission_required("biblioteca.change_livro", raise_exception=True)
 def editar_livro(request, id):
     livro = get_object_or_404(Livro, id=id)
     if request.method == "POST":
@@ -73,8 +81,15 @@ def remover_livro(request, id):
         return render(request, "dashboard/remover_livro.html")
 
 def listar_usuarios(request):
-    usuarios = Usuario.objects.all()
-    return render(request, "dashboard/usuarios.html", {"usuarios": usuarios})
+    ordenar = request.GET.get("ordenar")
+    if ordenar:
+        usuarios = Usuario.objects.all().order_by(ordenar)
+    else:
+        usuarios = Usuario.objects.all().order_by("id")
+    paginator = Paginator(usuarios, 10)
+    numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
+    usuarios_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
+    return render(request, "dashboard/usuarios.html", {"usuarios": usuarios_paginados})
 
 def criar_usuario(request):
     if request.method == "POST":
@@ -118,9 +133,3 @@ def remover_usuario(request, id):
         return redirect("dashboard:usuarios")
     else:
         return render(request, "dashboard/remover_usuario.html")
-
-def desabilitar_usuario(request):
-    pass
-
-def listar_favoritos(request):
-    pass

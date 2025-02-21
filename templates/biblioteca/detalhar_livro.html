@@ -7,16 +7,7 @@
 </div>
 <section class="album py-5 bg-body-tertiary">
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <h1>{{ livro.autor }}</h1>
-      {% if livro.capa %} 
-      <img src="{{ livro.capa.url }}" alt="capa">
-      {% endif %}
-      <p>{{ livro.sinopse }}</p>
-      <p>{{ livro.get_genero_display }}</p>
-      <p>{{ livro.ano }}</p>
-      <p>{{ livro.favoritos.count }}</p>
-    </div>
+    {% include "biblioteca/partials/_detalhar_livro.html" %}
   </div>
 </section>
 {% endblock %}

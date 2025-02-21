@@ -13,9 +13,9 @@ def index(request):
 def livros(request):
     filtro = request.GET.get("f")
     if filtro and filtro in Livro.GENEROS:
-        livros = Livro.objects.filter(genero=filtro)
+        livros = Livro.objects.filter(genero=filtro).order_by("id")
     else:
-        livros = Livro.objects.all()
+        livros = Livro.objects.all().order_by("id")
     paginator = Paginator(livros, 6)
     numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
     livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
@@ -41,7 +41,7 @@ def pesquisa(request):
 
 @login_required
 def meus_livros(request):
-    livros = Livro.objects.filter(favoritos__id=request.user.id)
+    livros = Livro.objects.filter(favoritos__id=request.user.id).order_by("id")
     paginator = Paginator(livros, 6)
     numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
     livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica

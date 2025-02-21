@@ -9,8 +9,6 @@
     <p>Gênero: {{livro.get_genero_display}}</p>
     <p>Sinopse: {{livro.sinopse}}</p>
     <p>Favoritos: {{livro.favoritos.count}}</p>
-    <a href="{% url 'dashboard:livros' %}">Voltar</a>
-    <a href="{% url 'dashboard:editar-livro' livro.id %}">Editar</a>
-    <a href="{% url 'dashboard:remover-livro' livro.id %}">Remover</a>
+    <a href="{% url 'biblioteca:livros' %}">Voltar</a>
   </div>
 </div>

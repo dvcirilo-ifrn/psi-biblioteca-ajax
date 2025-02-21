@@ -18,6 +18,4 @@ urlpatterns = [
     path("usuarios/<int:id>/", views.ler_usuario, name="ler-usuario"),
     path("usuarios/<int:id>/editar/", views.editar_usuario, name="editar-usuario"),
     path("usuarios/<int:id>/remover/", views.remover_usuario, name="remover-usuario"),
-    path("usuarios/<int:id>/desabilitar/", views.desabilitar_usuario, name="desabilitar-usuario"),
-    path("favoritos/", views.listar_favoritos, name="favoritos"),
 ]
