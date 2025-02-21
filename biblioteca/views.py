@@ -34,12 +34,18 @@ def pesquisa(request):
         livros = livros_autor | livros_titulo | livros_sinopse
         livros.distinct()
     
-    return render(request, "biblioteca/pesquisa.html", {"livros": livros})
+    paginator = Paginator(livros, 6)
+    numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
+    livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
+    return render(request, "biblioteca/pesquisa.html", {"livros": livros_paginados})
 
 @login_required
 def meus_livros(request):
     livros = Livro.objects.filter(favoritos__id=request.user.id)
-    return render(request, "biblioteca/meus_livros.html", {"livros": livros})
+    paginator = Paginator(livros, 6)
+    numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
+    livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
+    return render(request, "biblioteca/meus_livros.html", {"livros": livros_paginados})
 
 @login_required
 def favoritar(request, id_livro):
