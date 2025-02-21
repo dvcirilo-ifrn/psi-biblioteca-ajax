@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from contas.models import Usuario
 from biblioteca.models import Livro
@@ -26,7 +27,10 @@ def listar_livros(request):
     else:
         livros = Livro.objects.all()
 
-    return render(request, "dashboard/livros.html", {"livros": livros})
+    paginator = Paginator(livros, 10)
+    numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
+    livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
+    return render(request, "dashboard/livros.html", {"livros": livros_paginados})
 
 def criar_livro(request):
     if request.method == "POST":
