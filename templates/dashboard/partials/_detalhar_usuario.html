@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col">
+    <h3>{{usuario.username}}</h3>
+    <p>Nome: {{usuario.first_name}}</p>
+    <p>Sobrenome: {{usuario.last_name}}</p>
+    <p>Data de Nascimento: {{usuario.nascimento}}</p>
+    <p>Idade: {{usuario.idade}}</p>
+    <p>Favoritos: {{usuario.favoritos.count}}</p>
+    <a href="{% url 'dashboard:usuarios' %}">Voltar</a>
+    <a href="{% url 'dashboard:editar-usuario' usuario.id %}">Editar</a>
+    <a href="{% url 'dashboard:remover-usuario' usuario.id %}">Remover</a>
+  </div>
+  <div class="col">
+    {% if usuario.avatar %}
+      <img src="{{ usuario.avatar.url }}" width=300 alt="capa">
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Remover</button>
+  <a href="{% url 'dashboard:usuarios' %}" class="btn btn-secondary" role="button">Cancelar</a>
+</form>

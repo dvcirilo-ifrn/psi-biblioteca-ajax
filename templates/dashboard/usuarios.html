@@ -1,5 +1,10 @@
 {% extends "dashboard/base.html" %}
-{% block page-title %}<h2 class="display-2">Usuários</h2>{% endblock %}
+{% block page-title %}
+<h2 class="display-2 me-auto">Usuários</h2>
+<div class="d-flex align-items-center">
+  <a class="btn btn-primary" href="{% url 'dashboard:criar-usuario' %}">Novo</a>
+</div>
+{% endblock %}
 
 {% block dashboard-content %}
 {% include 'dashboard/partials/_tabela_usuarios.html' %}

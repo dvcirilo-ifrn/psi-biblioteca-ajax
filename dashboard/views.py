@@ -74,7 +74,7 @@ def listar_usuarios(request):
 
 def criar_usuario(request):
     if request.method == "POST":
-        form = UsuarioCreateForm(request.POST, request.FILES)
+        form = UsuarioCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Usuário criado com sucesso!")
@@ -82,7 +82,7 @@ def criar_usuario(request):
         else:
             messages.error(request, "Falha ao criar usuário!")
     else:
-        form = UsuarioCreateForm()
+        form = UsuarioCreationForm()
     return render(request, "dashboard/criar_usuario.html", {"form": form})
 
 def ler_usuario(request, id):
@@ -106,8 +106,11 @@ def editar_usuario(request, id):
 def remover_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
     if request.method == "POST":
-        usuario.delete()
-        messages.success(request, "Usuário removido com sucesso!")
+        if usuario.id == request.user.id:
+            messages.error(request, "Não é possível remover o usuário logado!")
+        else:
+            usuario.delete()
+            messages.success(request, "Usuário removido com sucesso!")
         return redirect("dashboard:usuarios")
     else:
         return render(request, "dashboard/remover_usuario.html")

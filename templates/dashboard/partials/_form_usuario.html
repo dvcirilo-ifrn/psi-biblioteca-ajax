@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+<form method="post" enctype="multipart/form-data">
+  <style type="text/css" media="all">
+    .form-text {
+      display: none;
+    }
+  </style>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <a href="{% url 'dashboard:usuarios' %}" class="btn btn-secondary">Cancelar</a>
+</form>
