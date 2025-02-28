@@ -25,6 +25,10 @@ def detalhar_livro(request, id_livro):
     livro = get_object_or_404(Livro, id=id_livro)
     return render(request, "biblioteca/detalhar_livro.html", {"livro": livro})
 
+def ajax_detalhar_livro(request, id_livro):
+    livro = get_object_or_404(Livro, id=id_livro)
+    return render(request, "biblioteca/partials/_detalhar_livro.html", {"livro": livro})
+
 def pesquisa(request):
     pesquisa = request.GET.get("q")
     if pesquisa:

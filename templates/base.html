@@ -110,5 +110,25 @@
         <p class="mb-0"><a href="https://dvcirilo.github.io/psi-ifrn">Material de aula</a>.</p>
       </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+      {% block script %}
+      {% endblock %}
+
+      $(".detalharLivro").click(function() { //nesse caso não pode usar arrow function
+        // Pega a URL do livro a partir do atributo data-url
+        var dataUrl = $(this).data("url");
+        $.ajax({
+          url: dataUrl,
+          method: "get",
+          success: (response) => {
+            $("#modal-livro .modal-body").html(response);
+            $("#modal-livro").show();
+          }
+        });
+      });
+    </script>
   </body>
 </html>
