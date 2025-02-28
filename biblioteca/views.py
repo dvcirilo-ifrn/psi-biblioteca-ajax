@@ -24,6 +24,18 @@ def livros(request):
     livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
     return render(request, "biblioteca/livros.html", {"livros": livros_paginados, "opcoes": Livro.GENEROS.items()})
 
+def ajax_livros(request):
+    time.sleep(2)
+    filtro = request.GET.get("f")
+    if filtro and filtro in Livro.GENEROS:
+        livros = Livro.objects.filter(genero=filtro).order_by("id")
+    else:
+        livros = Livro.objects.all().order_by("id")
+    paginator = Paginator(livros, 6)
+    numero_da_pagina = request.GET.get('p')  # Pega o número da página da URL
+    livros_paginados = paginator.get_page(numero_da_pagina)  # Pega a página específica
+    return render(request, "biblioteca/partials/_galeria_livros.html", {"livros": livros_paginados, "opcoes": Livro.GENEROS.items()})
+
 def detalhar_livro(request, id_livro):
     livro = get_object_or_404(Livro, id=id_livro)
     return render(request, "biblioteca/detalhar_livro.html", {"livro": livro})

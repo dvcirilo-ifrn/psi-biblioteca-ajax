@@ -45,3 +45,14 @@ $(".form-like").submit( function (evento) {
       }
     );
   }
+
+  $("#generos-select").change(function() {
+    const urlFiltrada = `${livrosUrl}?f=${$(this).val()}`;
+    $(".album").html(spinner);
+    $.get(
+      urlFiltrada,
+      (resposta) => {
+        $(".album").html(resposta);
+      }
+    );
+  });
