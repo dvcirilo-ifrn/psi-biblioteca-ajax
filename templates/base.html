@@ -77,23 +77,9 @@
       </nav>
     </header>
 
-    {% if messages %}
-    <div>
-      {% for message in messages %}
-        <!-- o bootstrap não tem "alert-error", entao aqui converte
-          pra "alert-danger -->
-        {% if message.tags == "error" %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {% else %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        {% endif %}
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
+    <div id="div-mensagens">
+      {% include 'partials/_messages.html' %}
     </div>
-    {% endif %}
-
 
     <main class="flex-grow-1">
     {% block content %}
@@ -113,6 +99,7 @@
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>const mensagensUrl = "{% url 'biblioteca:ajax_mensagens' %}";</script>
     <script src="{% static 'js/script.js' %}"></script>
     <script>
       {% block script %}

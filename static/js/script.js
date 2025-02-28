@@ -30,9 +30,18 @@ $(".form-like").submit( function (evento) {
         } else {
           $(`#like-${resposta.id_livro}`).html(`<span>${resposta.favoritos}</span><i class="bi bi-heart ms-1"></i>`);
         }
+        buscarMensagens();
       },
       error: (xhr, status, error) => {
         alert(error);
       }
     });
   });
+
+  function buscarMensagens() {
+    $.get(mensagensUrl,
+      (resposta) => {
+        $("#div-mensagens").html(resposta);
+      }
+    );
+  }

@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.http import JsonResponse
 import time
+from django.contrib.messages import get_messages
 from .models import Livro
 from .forms import GeneroForm
 from contas.models import Usuario
@@ -90,3 +91,7 @@ def ajax_favoritar(request, id_livro):
         "like": like, 
         "id_livro": id_livro
     })
+
+def ajax_mensagens(request):
+    messages = get_messages(request)
+    return render(request, 'partials/_messages.html', {'messages': messages})

@@ -15,4 +15,5 @@ urlpatterns = [
     path("meus-livros/", views.meus_livros, name="meus-livros"),
     path("favoritar/<int:id_livro>/", views.favoritar, name="favoritar"),
     path("favoritar/<int:id_livro>/ajax", views.ajax_favoritar, name="ajax_favoritar"),
+    path("ajax-messages/", views.ajax_mensagens, name="ajax_mensagens"),
 ]
