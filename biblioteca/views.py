@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
 from django.contrib import messages
+import time
 from .models import Livro
 from .forms import GeneroForm
 from contas.models import Usuario
@@ -27,6 +28,7 @@ def detalhar_livro(request, id_livro):
 
 def ajax_detalhar_livro(request, id_livro):
     livro = get_object_or_404(Livro, id=id_livro)
+    time.sleep(2) # simula atraso da rede
     return render(request, "biblioteca/partials/_detalhar_livro.html", {"livro": livro})
 
 def pesquisa(request):
