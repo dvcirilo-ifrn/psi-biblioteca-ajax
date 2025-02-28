@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.http import JsonResponse
 import time
 from .models import Livro
 from .forms import GeneroForm
@@ -67,3 +68,25 @@ def favoritar(request, id_livro):
         messages.erros(request, "Falha ao favoritar o livro!")
 
     return redirect("biblioteca:meus-livros")
+
+@login_required
+def ajax_favoritar(request, id_livro):
+    like = False
+    if request.POST:
+        livro = get_object_or_404(Livro, id=id_livro)
+        if request.user in livro.favoritos.all():
+            livro.favoritos.remove(request.user)
+            messages.success(request, "Livro removido com sucesso!")
+        else:
+            livro.favoritos.add(request.user)
+            like = True
+            messages.success(request, "Livro favoritado com sucesso!")
+    else:
+
+        messages.erros(request, "Falha ao favoritar o livro!")
+
+    return JsonResponse({
+        "favoritos": livro.favoritos.count(), 
+        "like": like, 
+        "id_livro": id_livro
+    })

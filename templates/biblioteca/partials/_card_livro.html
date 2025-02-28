@@ -18,11 +18,11 @@
             <p>{{ livro.ano }}</p>
           </div>
           <div class="d-flex align-items-bottom justify-content-center gap-2 mt-auto">
-            <button data-url="{% url 'biblioteca:ajax_detalhar_livro' livro.id %}" data-bs-toggle="modal" data-bs-target="#modal-livro" class="btn btn-primary detalharLivro">Detalhar</button>
+            <button data-url="{% url 'biblioteca:ajax_detalhar_livro' livro.id %}" data-bs-toggle="modal" data-bs-target="#modal-livro" class="btn btn-primary detalharLivro">Detalhes</button>
             {% if request.user.is_authenticated %}
-            <form action="{% url 'biblioteca:favoritar' livro.id %}" method="post">
+            <form class="form-like" action="{% url 'biblioteca:ajax_favoritar' livro.id %}" method="post">
               {% csrf_token %}
-              <button type="submit" class="btn btn-outline-danger">
+              <button type="submit" id="like-{{ livro.id }}" class="btn btn-outline-danger">
                 <span>{{ livro.favoritos.count }}</span>
                 {% if request.user in livro.favoritos.all %}
                 <i class="bi bi-heart-fill ms-1"></i>
