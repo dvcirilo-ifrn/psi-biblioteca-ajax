@@ -12,15 +12,15 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li class="page-item {{  livros.has_previous|yesno:',disabled,disabled'  }}">
-        <a class="page-link" href="{% if livros.has_previous %}{% querystring p=livros.previous_page_number %}{% endif %}" aria-label="Previous">
+        <a class="page-link" data-url="{% if livros.has_previous %}{% url 'biblioteca:ajax_livros' %}{% querystring p=livros.previous_page_number %}{% endif %}" href="{% if livros.has_previous %}{% querystring p=livros.previous_page_number %}{% endif %}" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
       {% for page in livros.paginator.page_range %}
-      <li class="page-item"><a class="page-link {% if livros.number == page %}active{% endif %}" href="{% querystring p=page %}">{{page}}</a></li>
+      <li class="page-item"><a class="page-link {% if livros.number == page %}active{% endif %}" data-url="{% url 'biblioteca:ajax_livros' %}{% querystring p=page %}" href="{% querystring p=page %}">{{page}}</a></li>
       {% endfor %}
       <li class="page-item {{  livros.has_next|yesno:',disabled,disabled'  }}">
-        <a class="page-link" href="{% if livros.has_next %}{% querystring p=livros.next_page_number %}{% endif %}" aria-label="Previous">
+        <a class="page-link" data-url="{% if livros.has_next %}{% url 'biblioteca:ajax_livros' %}{% querystring p=livros.next_page_number %}{% endif %}" href="{% if livros.has_next %}{% querystring p=livros.next_page_number %}{% endif %}" aria-label="Previous">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>

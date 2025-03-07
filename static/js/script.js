@@ -56,3 +56,19 @@ $(".form-like").submit( function (evento) {
       }
     );
   });
+
+  function criarEventoPaginacao() {
+    $(".page-link").click(function(evento) {
+      evento.preventDefault();
+      const url = $(this).data("url");
+      $(".album").html(spinner);
+      $.get(
+        url,
+        (resposta) => {
+          $(".album").html(resposta);
+          criarEventoPaginacao();
+        }
+      );
+    });
+  }
+  criarEventoPaginacao();
