@@ -42,23 +42,25 @@ document.querySelectorAll(".form-like").forEach(function(form) {
   });
 
   function buscarMensagens() {
-    $.get(mensagensUrl,
-      (resposta) => {
-        $("#div-mensagens").html(resposta);
-      }
-    );
+    fetch(mensagensUrl)
+      .then((response) => response.text())
+      .then((html) => {
+        document.querySelector("#div-mensagens").innerHTML = html;
+      });
   }
 
-  $("#generos-select").change(function() {
-    const urlFiltrada = `${livrosUrl}?f=${$(this).val()}`;
-    $(".album").html(spinner);
-    $.get(
-      urlFiltrada,
-      (resposta) => {
-        $(".album").html(resposta);
-      }
-    );
-  });
+  const generosSelect = document.querySelector("#generos-select");
+  if (generosSelect) {
+    generosSelect.addEventListener("change", function() {
+      const urlFiltrada = `${livrosUrl}?f=${this.value}`;
+      document.querySelector(".album").innerHTML = spinner;
+      fetch(urlFiltrada)
+        .then((response) => response.text())
+        .then((html) => {
+          document.querySelector(".album").innerHTML = html;
+        });
+    });
+  }
 
   function criarEventoPaginacao() {
     $(".page-link").click(function(evento) {
