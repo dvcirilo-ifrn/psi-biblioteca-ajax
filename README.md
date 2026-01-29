@@ -13,8 +13,7 @@ Material de apoio da disciplina de [Programação de Sistemas para Internet](htt
 
 ## Implementação
 - *Front-end* feito usando apenas blocos de exemplo do [Bootstrap 5](https://getbootstrap.com/);
-- [*jQuery*](https://jquery.com/) para manipulação do DOM e requisições;
-    - Perspectiva de mudar para JS "*Vanilla*";
+- JavaScript *Vanilla* para manipulação do DOM e requisições (usando `fetch`);
 - *Back-end* seguindo os exemplos da documentação do Django e usando FBVs (*Function Based Views*)
 - Nomenclatura em português para facilitar a compreensão;
 - Pastas de `templates` e `static` na raiz, com sub-pastas para cada *app*, evitando conflitos;
