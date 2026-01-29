@@ -63,17 +63,18 @@ document.querySelectorAll(".form-like").forEach(function(form) {
   }
 
   function criarEventoPaginacao() {
-    $(".page-link").click(function(evento) {
-      evento.preventDefault();
-      const url = $(this).data("url");
-      $(".album").html(spinner);
-      $.get(
-        url,
-        (resposta) => {
-          $(".album").html(resposta);
-          criarEventoPaginacao();
-        }
-      );
+    document.querySelectorAll(".page-link").forEach(function(link) {
+      link.addEventListener("click", function(evento) {
+        evento.preventDefault();
+        const url = this.dataset.url;
+        document.querySelector(".album").innerHTML = spinner;
+        fetch(url)
+          .then((response) => response.text())
+          .then((html) => {
+            document.querySelector(".album").innerHTML = html;
+            criarEventoPaginacao();
+          });
+      });
     });
   }
   criarEventoPaginacao();
