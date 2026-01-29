@@ -18,23 +18,26 @@ document.querySelectorAll(".detalharLivro").forEach(function(elemento) {
     });
 });
 
-$(".form-like").submit( function (evento) {
-    evento.preventDefault(); // evita a submissão "normal" do form
-    $.ajax({
-      url: $(this).attr("action"),
-      method: "POST",
-      data: $(this).serialize(),
-      success: (resposta) => {
-        if (resposta.like) {
-          $(`#like-${resposta.id_livro}`).html(`<span>${resposta.favoritos}</span><i class="bi bi-heart-fill ms-1"></i>`);
-        } else {
-          $(`#like-${resposta.id_livro}`).html(`<span>${resposta.favoritos}</span><i class="bi bi-heart ms-1"></i>`);
-        }
-        buscarMensagens();
-      },
-      error: (xhr, status, error) => {
-        alert(error);
-      }
+document.querySelectorAll(".form-like").forEach(function(form) {
+    form.addEventListener("submit", function(evento) {
+      evento.preventDefault(); // evita a submissão "normal" do form
+      const formData = new FormData(this);
+      fetch(this.getAttribute("action"), {
+        method: "POST",
+        body: new URLSearchParams(formData)
+      })
+        .then((response) => response.json())
+        .then((resposta) => {
+          if (resposta.like) {
+            document.querySelector(`#like-${resposta.id_livro}`).innerHTML = `<span>${resposta.favoritos}</span><i class="bi bi-heart-fill ms-1"></i>`;
+          } else {
+            document.querySelector(`#like-${resposta.id_livro}`).innerHTML = `<span>${resposta.favoritos}</span><i class="bi bi-heart ms-1"></i>`;
+          }
+          buscarMensagens();
+        })
+        .catch((error) => {
+          alert(error);
+        });
     });
   });
 
