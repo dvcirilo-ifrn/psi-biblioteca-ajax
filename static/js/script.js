@@ -5,16 +5,16 @@ const spinner = `
     </div>
 </div>`
 
-$(".detalharLivro").click(function() { //nesse caso não pode usar arrow function
-    $("#modal-livro .modal-body").html(spinner);
-    // Pega a URL do livro a partir do atributo data-url
-    const dataUrl = $(this).data("url");
-    $.ajax({
-        url: dataUrl,
-        method: "get",
-        success: (response) => {
-        $("#modal-livro .modal-body").html(response);
-        }
+document.querySelectorAll(".detalharLivro").forEach(function(elemento) {
+    elemento.addEventListener("click", function() {
+        document.querySelector("#modal-livro .modal-body").innerHTML = spinner;
+        // Pega a URL do livro a partir do atributo data-url
+        const dataUrl = this.dataset.url;
+        fetch(dataUrl)
+            .then((response) => response.text())
+            .then((html) => {
+                document.querySelector("#modal-livro .modal-body").innerHTML = html;
+            });
     });
 });
 
